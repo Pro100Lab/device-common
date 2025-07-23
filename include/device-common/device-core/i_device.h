@@ -27,15 +27,10 @@ class IconItem : public QQuickPaintedItem {
     Q_OBJECT
     Q_PROPERTY(QIcon icon READ icon WRITE setIcon)
 public:
-    void paint(QPainter *painter) override {
-        qDebug() << "paint icon";
-        if (m_icon.isNull()) return;
-        qDebug() << "icon is not null";
-        m_icon.paint(painter, QRect(0, 0, width(), height()));
-    }
+    void paint(QPainter *painter) override;
 
-    QIcon icon() const { return m_icon; }
-    void setIcon(const QIcon &icon) { m_icon = icon; update(); qDebug() <<"set icon: " << DeviceInfo::IconToBase64(icon);}
+    QIcon icon() const;
+    void setIcon(const QIcon &icon);
 
 private:
     QIcon m_icon;

@@ -76,3 +76,14 @@ IDevice &IDevice::operator=(const IDevice& device)
 
     return *this;
 }
+
+void IconItem::paint(QPainter *painter) {
+    if (m_icon.isNull())
+        return;
+
+    m_icon.paint(painter, QRect(0, 0, width(), height()));
+}
+
+QIcon IconItem::icon() const { return m_icon; }
+
+void IconItem::setIcon(const QIcon &icon) { m_icon = icon; update(); qDebug() <<"set icon: " << DeviceInfo::IconToBase64(icon);}
