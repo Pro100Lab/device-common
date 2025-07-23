@@ -23,7 +23,7 @@ public:
 
     DeviceStatus(const DeviceStatus& other);
 
-    DeviceStatus& operator=(const DeviceStatus& other) = delete;
+    DeviceStatus& operator=(const DeviceStatus& other);
 
     Q_INVOKABLE QString description() const;
     Q_INVOKABLE QMap<QString, QVariant> properties() const;

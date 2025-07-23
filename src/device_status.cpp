@@ -7,6 +7,14 @@ DeviceStatus::DeviceStatus(const DeviceStatus &other) : QObject(nullptr),
     m_properties(other.m_properties)
 {}
 
+DeviceStatus &DeviceStatus::operator=(const DeviceStatus &other)
+{
+    m_description = other.m_description;
+    m_properties = other.m_properties;
+
+    return *this;
+}
+
 QString DeviceStatus::description() const { return m_description; }
 
 QMap<QString, QVariant> DeviceStatus::properties() const { return m_properties; }

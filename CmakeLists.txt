@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(device-common LANGUAGES CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick)
 
 set(SOURCES
     src/device_state.cpp
@@ -13,6 +13,8 @@ add_library(device-common STATIC ${SOURCES}
     include/device-common/device_info.h
     include/device-common/device_status.h
     include/device-common/device_state.h
+    include/device-common/device-core/i_device.h
+    src/device-core/i_device.cpp
 )
 
 set_target_properties(device-common PROPERTIES
@@ -21,6 +23,7 @@ set_target_properties(device-common PROPERTIES
 
 target_link_libraries(device-common PRIVATE
     Qt6::Core
+    Qt6::Quick
     Qt6::Gui
 )
 
