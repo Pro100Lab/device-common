@@ -1,13 +1,36 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 project(device-common LANGUAGES CXX)
 
-add_library(device-common STATIC
-    src/devicestate.cpp
+find_package(Qt6 REQUIRED COMPONENTS Core Gui)
+
+set(SOURCES
+    src/device_state.cpp
+    src/device_info.cpp
+    src/device_status.cpp
 )
 
-target_include_directories(device-common PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
+add_library(device-common STATIC ${SOURCES}
+    include/device-common/device_info.h
+    include/device-common/device_status.h
+    include/device-common/device_state.h
+)
+
+set_target_properties(device-common PROPERTIES
+    AUTOMOC ON
+)
+
+target_link_libraries(device-common PRIVATE
+    Qt6::Core
+    Qt6::Gui
+)
+
+target_include_directories(device-common
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+    PRIVATE
+        ${Qt6Core_INCLUDE_DIRS}
+        ${Qt6Gui_INCLUDE_DIRS}
 )
 
 install(TARGETS device-common EXPORT device-common-targets
@@ -20,5 +43,6 @@ install(TARGETS device-common EXPORT device-common-targets
 install(DIRECTORY include/ DESTINATION include)
 install(EXPORT device-common-targets
     FILE device-common-config.cmake
+    NAMESPACE device-common::
     DESTINATION lib/cmake/device-common
 )
