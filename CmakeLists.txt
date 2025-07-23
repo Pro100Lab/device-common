@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.5)
+project(device-common LANGUAGES CXX)
+
+add_library(device-common STATIC
+    src/devicestate.cpp
+)
+
+target_include_directories(device-common PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+install(TARGETS device-common EXPORT device-common-targets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
+)
+
+install(DIRECTORY include/ DESTINATION include)
+install(EXPORT device-common-targets
+    FILE device-common-config.cmake
+    DESTINATION lib/cmake/device-common
+)
